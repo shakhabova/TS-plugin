@@ -7,52 +7,52 @@ require('dotenv').config();
 const port = 8443;
 
 // Настройка OpenAI API
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_TOKEN,
-});
-const openai = new OpenAIApi(configuration);
+// const configuration = new Configuration({
+//     apiKey: process.env.OPENAI_TOKEN,
+// });
+// const openai = new OpenAIApi(configuration);
 
-async function generateTechnicalSpecification(prompt) {
-    const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-        max_tokens: 1500,
-    });
+// async function generateTechnicalSpecification(prompt) {
+//     const response = await openai.createCompletion({
+//         model: "text-davinci-003",
+//         prompt: prompt,
+//         max_tokens: 1500,
+//     });
 
-    return response.data.choices[0].text.trim();
-}
+//     return response.data.choices[0].text.trim();
+// }
 
-async function saveToWord(docText, filePath) {
-    const doc = new Document();
+// async function saveToWord(docText, filePath) {
+//     const doc = new Document();
 
-    doc.addSection({
-        children: [
-            new Paragraph({
-                children: [
-                    new TextRun({
-                        text: "Техническое задание",
-                        bold: true,
-                        size: 48,
-                    }),
-                ],
-                heading: "Heading1",
-            }),
-            ...docText.split('\n').map(line => new Paragraph(line)),
-        ],
-    });
+//     doc.addSection({
+//         children: [
+//             new Paragraph({
+//                 children: [
+//                     new TextRun({
+//                         text: "Техническое задание",
+//                         bold: true,
+//                         size: 48,
+//                     }),
+//                 ],
+//                 heading: "Heading1",
+//             }),
+//             ...docText.split('\n').map(line => new Paragraph(line)),
+//         ],
+//     });
 
-    const packer = new Packer();
-    const buffer = await packer.toBuffer(doc);
-    fs.writeFileSync(filePath, buffer);
-}
+//     const packer = new Packer();
+//     const buffer = await packer.toBuffer(doc);
+//     fs.writeFileSync(filePath, buffer);
+// }
 
-async function main() {
-    const prompt = "Напиши техническое задание для создания интернет-магазина";
-    const generatedText = await generateTechnicalSpecification(prompt);
-    await saveToWord(generatedText, "technical_specification.docx");
+// async function main() {
+//     const prompt = "Напиши техническое задание для создания интернет-магазина";
+//     const generatedText = await generateTechnicalSpecification(prompt);
+//     await saveToWord(generatedText, "technical_specification.docx");
 
-    console.log("Техническое задание сохранено в 'technical_specification.docx'");
-}
+//     console.log("Техническое задание сохранено в 'technical_specification.docx'");
+// }
 
 const server = http.createServer((req, res) => {
     console.log(req);
