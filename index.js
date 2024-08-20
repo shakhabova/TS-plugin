@@ -4,7 +4,7 @@ const fs = require("fs");
 const http = require('http');
 require('dotenv').config();
 
-const port = 8443;
+const port = 80;
 
 // Настройка OpenAI API
 // const configuration = new Configuration({
