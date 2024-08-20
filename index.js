@@ -1,10 +1,10 @@
 const { Configuration, OpenAIApi } = require("openai");
 const { Document, Packer, Paragraph, TextRun } = require("docx");
 const fs = require("fs");
-const http = require('http');
+const https = require('https');
 require('dotenv').config();
 
-const port = 80;
+const port = 443;
 
 // Настройка OpenAI API
 // const configuration = new Configuration({
@@ -54,7 +54,12 @@ const port = 80;
 //     console.log("Техническое задание сохранено в 'technical_specification.docx'");
 // }
 
-const server = http.createServer((req, res) => {
+const httpsOptions = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem'),
+}
+
+const server = https.createServer(httpsOptions, (req, res) => {
     console.log(req);
 
     res.end();
